@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Inter } from 'next/font/google'
 import { Roboto, Open_Sans } from 'next/font/google'
+import { AuthProvider } from "@/components/auth/auth-provider";
+import { ErrorBoundary } from "@/components/error-boundary";
+import { GoogleAnalytics } from "@/lib/analytics/google-analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +31,8 @@ const openSans = Open_Sans({
   display: 'swap',
 })
 
+const inter = Inter({ subsets: ['latin'] })
+
 export const metadata: Metadata = {
   title: "Ramen Munching",
   description: "Discover the art and culture of ramen through recipes, stories, and nutritional insights.",
@@ -39,9 +44,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} ${openSans.variable} antialiased`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} ${openSans.variable} ${inter.className} antialiased`}>
+      <head>
+        <GoogleAnalytics />
+      </head>
       <body className="font-sans bg-white text-gray-900">
-        {children}
+        <ErrorBoundary>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );
