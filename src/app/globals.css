@@ -14,8 +14,41 @@
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    @apply bg-beige-50 text-gray-900;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold;
+  }
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+  h4 {
+    @apply text-xl md:text-2xl lg:text-3xl;
+  }
+  p {
+    @apply text-base md:text-lg leading-relaxed;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-terracotta text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity;
+  }
+  .btn-secondary {
+    @apply bg-miso text-gray-900 px-4 py-2 rounded-lg hover:opacity-90 transition-opacity;
+  }
+  .card {
+    @apply bg-white rounded-xl shadow-md p-6;
+  }
+  .input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta focus:border-transparent;
+  }
 }
