@@ -3,7 +3,8 @@ import { supabase } from '@/lib/supabase/client'
 
 export async function GET() {
   try {
-    const { data, error } = await supabase.from('profiles').select('count').single()
+    // Just test if we can connect to Supabase by getting the server timestamp
+    const { data, error } = await supabase.rpc('now')
     
     if (error) {
       return NextResponse.json(
@@ -12,10 +13,14 @@ export async function GET() {
       )
     }
     
-    return NextResponse.json({ success: true, message: 'Successfully connected to Supabase!' })
+    return NextResponse.json({ 
+      success: true, 
+      message: 'Successfully connected to Supabase!',
+      timestamp: data 
+    })
   } catch (err) {
     return NextResponse.json(
-      { error: 'Error testing Supabase connection: ' + err },
+      { error: 'Error testing Supabase connection: ' + (err instanceof Error ? err.message : String(err)) },
       { status: 500 }
     )
   }
