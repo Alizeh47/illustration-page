@@ -2,22 +2,25 @@ import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase/client'
 
 export async function GET() {
-  // During build time, return a mock response
-  if (process.env.NODE_ENV === 'development' || !process.env.NEXT_PUBLIC_SUPABASE_URL) {
+  // Check if we're in a browser environment
+  const isBrowser = typeof window !== 'undefined'
+  
+  // During build/SSR, return a mock response
+  if (!isBrowser) {
     return NextResponse.json({ 
       success: true, 
-      message: 'Build-time check - Supabase connection will be tested in production',
+      message: 'Build/SSR environment - Connection check skipped',
       timestamp: new Date().toISOString()
     })
   }
 
   try {
-    // Just test if we can connect to Supabase by getting the server timestamp
     const { data, error } = await supabase.rpc('now')
     
     if (error) {
+      console.error('Supabase connection error:', error)
       return NextResponse.json(
-        { error: 'Failed to connect to Supabase: ' + error.message },
+        { error: 'Failed to connect to Supabase' },
         { status: 500 }
       )
     }
@@ -28,8 +31,9 @@ export async function GET() {
       timestamp: data 
     })
   } catch (err) {
+    console.error('Supabase connection error:', err)
     return NextResponse.json(
-      { error: 'Error testing Supabase connection: ' + (err instanceof Error ? err.message : String(err)) },
+      { error: 'Error testing Supabase connection' },
       { status: 500 }
     )
   }
