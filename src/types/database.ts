@@ -13,47 +13,29 @@ export interface Database {
         Row: {
           id: string
           created_at: string
-          updated_at: string
           title: string
-          slug: string
-          content: string
-          image_url: string | null
-          author_id: string
-          category: string
-          difficulty: string
-          cooking_time: string
-          ingredients: Json[]
-          instructions: Json[]
+          description: string
+          ingredients: Json
+          instructions: Json
+          user_id: string
         }
         Insert: {
           id?: string
           created_at?: string
-          updated_at?: string
           title: string
-          slug: string
-          content: string
-          image_url?: string | null
-          author_id: string
-          category: string
-          difficulty: string
-          cooking_time: string
-          ingredients: Json[]
-          instructions: Json[]
+          description: string
+          ingredients: Json
+          instructions: Json
+          user_id: string
         }
         Update: {
           id?: string
           created_at?: string
-          updated_at?: string
           title?: string
-          slug?: string
-          content?: string
-          image_url?: string | null
-          author_id?: string
-          category?: string
-          difficulty?: string
-          cooking_time?: string
-          ingredients?: Json[]
-          instructions?: Json[]
+          description?: string
+          ingredients?: Json
+          instructions?: Json
+          user_id?: string
         }
       }
       profiles: {

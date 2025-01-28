@@ -51,7 +51,7 @@ export const RecipeGrid: React.FC = () => {
           />
         ))}
       </div>
-      <h1 className={`absolute top-12 left-1/2 -translate-x-1/2 text-[48px] tracking-wider text-center ${jollyLodgerFont.variable} font-jolly-lodger`}>
+      <h1 className={`absolute top-12 left-1/2 -translate-x-1/2 text-[48px] tracking-wider text-center ${jollyLodgerFont.className}`}>
         MISO<br />RAMEN
       </h1>
     </div>

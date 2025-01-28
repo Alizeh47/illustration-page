@@ -3,7 +3,7 @@ import { ErrorBoundary } from "@/components/error-boundary"
 import { GoogleAnalytics } from "@/lib/analytics/google-analytics"
 import { GlobalProvider } from '@/context/GlobalContext'
 import { AuthProvider } from '@/components/auth/auth-provider'
-import { displayFont, jollyLodgerFont } from '@/styles/fonts'
+import { inter, jollyLodgerFont } from '@/styles/fonts'
 
 export default function RootLayout({
   children,
@@ -11,17 +11,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${jollyLodgerFont.variable}`}>
+    <html lang="en" className={`${inter.className} ${jollyLodgerFont.className}`}>
       <head>
         <GoogleAnalytics />
       </head>
-      <body className={displayFont.className}>
+      <body>
         <ErrorBoundary>
-          <AuthProvider>
-            <GlobalProvider>
-              {children}
-            </GlobalProvider>
-          </AuthProvider>
+          <GlobalProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </GlobalProvider>
         </ErrorBoundary>
       </body>
     </html>
