@@ -2,14 +2,11 @@ import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase/client'
 
 export async function GET() {
-  // Check if we're in a browser environment
-  const isBrowser = typeof window !== 'undefined'
-  
-  // During build/SSR, return a mock response
-  if (!isBrowser) {
+  // During build time, return a mock response
+  if (process.env.NETLIFY || process.env.NODE_ENV !== 'production') {
     return NextResponse.json({ 
       success: true, 
-      message: 'Build/SSR environment - Connection check skipped',
+      message: 'Build environment - Connection check skipped',
       timestamp: new Date().toISOString()
     })
   }
